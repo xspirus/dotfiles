@@ -12,7 +12,7 @@ today=`date +%Y%m%d`
 fancy_echo "Making backup of local config files (not linked files)"
 for file in ${dotfiles[@]}
 do
-	[ -e ~/.$file ] && [ ! -L ~/.$file ] && mv -v ~/.$file.bak.$today
+	[ -e ~/.$file ] && [ ! -L ~/.$file ] && mv -v ~/.$file ~/.$file.bak.$today
 	[ -L ~/.$file ] && unlink -v ~/.$file
 done
 
