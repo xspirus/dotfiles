@@ -109,4 +109,4 @@ fi
 # Powelevel9k
 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time ram)
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S | %d/%m/%y}"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S | %d/%m/%Y}"
