@@ -1,0 +1,17 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"All Autocomplete",
+		"Awk",
+		"EasyClangComplete",
+		"Material Theme",
+		"Package Control",
+		"PackageResourceViewer",
+		"SideBarEnhancements"
+	]
+}

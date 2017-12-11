@@ -1,0 +1,14 @@
+{
+	"color_scheme": "Packages/User/Monokai.tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 9,
+	"hot_exit": false,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"remember_open_files": false,
+	"theme": "Material-Theme-Darker.sublime-theme"
+}
