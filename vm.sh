@@ -22,4 +22,4 @@ gdmconf="/etc/gdm/custom.conf"
 [ -e $gdmconf ] && [ ! -L $gdmconf ] && mv $gdmconf {$gdmconf}.bak
 [ -L $gdmconf ] && unlink -v $gdmconf
 
-ln -sv ~/dotfiles/custom.conf $gdmconf 
+ln -sv ~/dotfiles/custom.conf $gdmconf
