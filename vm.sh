@@ -19,7 +19,7 @@ install ${packages[@]}
 systemctl enable vmtoolsd.service
 
 gdmconf="/etc/gdm/custom.conf"
-[ -e $gdmconf ] && [ ! -L $gdmconf ] && mv $gdmconf {$gdmconf}.bak
-[ -L $gdmconf ] && unlink -v $gdmconf
+[ -e $gdmconf ] && [ ! -L $gdmconf ] && sudo mv $gdmconf ${gdmconf}.bak
+[ -L $gdmconf ] && sudo unlink -v $gdmconf
 
-ln -sv ~/dotfiles/custom.conf $gdmconf
+sudo ln -sv ~/dotfiles/custom.conf $gdmconf
