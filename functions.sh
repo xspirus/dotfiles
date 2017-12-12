@@ -45,4 +45,5 @@ install() {
 		exit 1
 	else
 		echo_done "Pacman finished its job"
+	fi
 }
