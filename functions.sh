@@ -7,10 +7,10 @@ if which tput >/dev/null 2>&1; then
 fi
 
 if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-	ERROR="$(tput setaf 1)"
-	DONE="$(tput setaf 2)"
-	WARNING="$(tput setaf 3)"
-	INFO="$(tput setaf 4)"
+	ERROR="$(tput setaf 1)"     # RED
+	DONE="$(tput setaf 2)"      # GREEN
+	WARNING="$(tput setaf 3)"   # YELLOW
+	INFO="$(tput setaf 4)"      # CYAN
 	BOLD="$(tput bold)"
 	NORMAL="$(tput sgr0)"
 else
