@@ -12,16 +12,20 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'raimondi/delimitmate'
 Plug 'valloric/youcompleteme'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'xspirus/vim-ultisnips'
 Plug 'godlygeek/tabular'
-Plug 'flazz/vim-colorschemes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colorscheme Plugins                                                       "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -30,6 +34,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 filetype plugin indent on
+syntax on
 syntax enable
 set encoding=utf-8
 
@@ -99,14 +104,27 @@ set cursorline
 set laststatus=2
 
 " Colors
-set t_Co=256
 set background=dark
-colorscheme PaperColor
+set termguicolors
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+
+" Change from block to i-beam in insert mode
+if has("autocmd")
+  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[1 q"' | redraw!
+  au InsertEnter,InsertChange *
+    \ if v:insertmode == 'i' | 
+    \   silent execute '!echo -ne "\e[5 q"' | redraw! |
+    \ elseif v:insertmode == 'r' |
+    \   silent execute '!echo -ne "\e[3 q"' | redraw! |
+    \ endif
+  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Airline Theme                                                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme                          = 'powerlineish'
+
 let g:airline#extensions#syntastic#enabled   = 1
 let g:airline#extensions#branch#enabled      = 1
 let g:airline#extensions#tabline#enabled     = 1
@@ -116,7 +134,7 @@ let g:airline#extensions#tagbar#enabled      = 1
 let g:airline_skip_empty_sections            = 1
 let g:airline_powerline_fonts                = 1
 
-let g:airline_section_x = airline#section#create(['filetype', ' ', '%{WebDevIconsGetFileTypeSymbol()}', '%{WebDevIconsGetFileFormatSymbol()}'])
+let g:airline_section_x = airline#section#create(['filetype', ' ', '%{WebDevIconsGetFileTypeSymbol()}', ' ', '%{WebDevIconsGetFileFormatSymbol()}'])
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree                                                                  "
