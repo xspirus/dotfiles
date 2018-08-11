@@ -7,7 +7,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'raimondi/delimitmate'
@@ -21,6 +22,7 @@ Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autocomplete                                                              "
@@ -33,7 +35,14 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/neco-vim'
 Plug 'zchee/deoplete-zsh'
+Plug 'artur-shaik/vim-javacomplete2'
 Plug 'ervandew/supertab'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Haskell                                                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'eagletmt/ghcmod-vim'
+Plug 'eagletmt/neco-ghc'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme Plugins                                                       "
@@ -46,6 +55,7 @@ Plug 'joshdick/onedark.vim'
 " => Syntax                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 
@@ -171,19 +181,25 @@ let g:NERDTreeDirArrows = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_error_symbol             = '✗'
-let g:syntastic_warning_symbol           = '⚠'
-let g:syntastic_style_error_symbol       = '✗'
-let g:syntastic_style_warning_symbol     = '⚠'
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_aggregate_errors         = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_error_symbol             = '✗'
+" let g:syntastic_warning_symbol           = '⚠'
+" let g:syntastic_style_error_symbol       = '✗'
+" let g:syntastic_style_warning_symbol     = '⚠'
+" let g:syntastic_auto_loc_list            = 1
+" let g:syntastic_aggregate_errors         = 1
+" let g:syntastic_check_on_open            = 1
+" let g:syntastic_check_on_wq              = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ale                                                                       "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_sign_error   = '✗'
+let g:ale_sign_warning = '⚠'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDComment                                                               "
@@ -212,6 +228,17 @@ let g:delimitMate_expand_space = 1
 " => Multiple Cursors                                                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:multi_cursor_use_default_mappings = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Java Complete 2                                                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Haskell neco-ghc                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 "*************************************************************
 " => Merlin
@@ -367,7 +394,7 @@ endfunction
 function! FunctionAlign()
     let [vstart, vend] = ["'<", "'>"]
     let range = vstart . ',' . vend
-    execute range . "EasyAlign / [*]*[ ]\\=\\ze\\S\\+\\s*[,;=]/ { 'lm' : 0, 'rm' : 0 }"
+    execute range . "EasyAlign / [*]*[ ]\\=\\ze\\S\\+\\s*[(,;=]/ { 'lm' : 0, 'rm' : 0 }"
     execute range . "EasyAlign /(/ { 'rm' : 0 }"
 endfunction
 
