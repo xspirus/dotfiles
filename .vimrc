@@ -7,25 +7,50 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'raimondi/delimitmate'
-Plug 'valloric/youcompleteme'
+" Plug 'raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips' | Plug 'xspirus/vim-ultisnips'
 Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Autocomplete                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'Valloric/YouCompleteMe'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'ervandew/supertab'
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Haskell                                                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plug 'eagletmt/ghcmod-vim'
+"Plug 'eagletmt/neco-ghc'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme Plugins                                                       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Syntax                                                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 
@@ -78,9 +103,10 @@ set hlsearch
 " Tabs
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 " FileTypes with tab length of 2
-autocmd FileType ocaml,html,css setlocal tabstop=2 shiftwidth=2
+autocmd FileType ocaml,html,css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Omnifunc
 set omnifunc=syntaxComplete#complete
@@ -106,20 +132,23 @@ set laststatus=2
 " Colors
 set background=dark
 set termguicolors
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+colo onedark
 
-" Change from block to i-beam in insert mode
-if has("autocmd")
-  au VimEnter,InsertLeave * silent execute '!echo -ne "\e[1 q"' | redraw!
-  au InsertEnter,InsertChange *
-    \ if v:insertmode == 'i' | 
-    \   silent execute '!echo -ne "\e[5 q"' | redraw! |
-    \ elseif v:insertmode == 'r' |
-    \   silent execute '!echo -ne "\e[3 q"' | redraw! |
-    \ endif
-  au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
-endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe                                                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Easy Align                                                            "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:easy_align_ignore_groups    = [ "Comment", "String" ]
+let g:easy_align_ignore_unmatched = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => SuperTab                                                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Airline Theme                                                             "
@@ -143,21 +172,10 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic                                                                 "
+" => Ale                                                                       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_error_symbol             = '✗'
-let g:syntastic_warning_symbol           = '⚠'
-let g:syntastic_style_error_symbol       = '✗'
-let g:syntastic_style_warning_symbol     = '⚠'
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_aggregate_errors         = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 0
+let g:ale_sign_error   = '✗'
+let g:ale_sign_warning = '⚠'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDComment                                                               "
@@ -173,8 +191,8 @@ let g:NERDTrimTrailingWhitespace = 1
 " => UltiSnips                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:UltiSnipsExpandTrigger       = "<c-k>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-e>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => delimitMate                                                               "
@@ -182,47 +200,21 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:delimitMate_expand_cr    = 1
 let g:delimitMate_expand_space = 1
 
-"*************************************************************
-" => Merlin
-"*************************************************************
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Multiple Cursors                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:multi_cursor_use_default_mappings = 0
 
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Java Complete 2                                                           "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-" ## added by OPAM user-setup for vim / ocp-indent ## 8729362b73b74330fe07a4e67aeaed6a ## you can edit, but keep this line
-if count(s:opam_available_tools,"ocp-indent") == 0
-  source "/home/spirus/.opam/system/share/vim/syntax/ocp-indent.vim"
-endif
-" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Haskell neco-ghc                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:haskellmode_completion_ghc = 1
+"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Abbreviations                                                             "
@@ -273,6 +265,12 @@ nnoremap <silent> <F4> :NERDTreeFind<CR>
 " Tagbar
 nnoremap <silent> <F5> :Tagbar<CR>
 
+" EasyAlign
+xmap ga <Plug>(EasyAlign)
+xmap gf :<C-U>call FunctionAlign()<CR>
+xmap gc :<C-U>call CCommentAlign()<CR>
+nmap ga <Plug>(EasyAlign)
+
 " NoHighlight
 nnoremap <Leader><esc> :noh<CR>
 
@@ -302,14 +300,14 @@ imap <S-Left>   <Esc>v<Left>
 imap <S-Right>  <Esc>`^v<Right>
 
 " Visual mode moves
-vnoremap <S-Up>     <Up>
-vnoremap <S-Down>   <Down>
-vnoremap <S-Left>   <Left>
-vnoremap <S-Right>  <Right>
-vnoremap <C-S-Up>       <S-Up>
-vnoremap <C-S-Down>     <S-Down>
-vnoremap <C-S-Left>     <S-Left>
-vnoremap <C-S-Right>    <S-Right>
+vnoremap <S-Up>      <Up>
+vnoremap <S-Down>    <Down>
+vnoremap <S-Left>    <Left>
+vnoremap <S-Right>   <Right>
+vnoremap <C-S-Up>    <S-Up>
+vnoremap <C-S-Down>  <S-Down>
+vnoremap <C-S-Left>  <S-Left>
+vnoremap <C-S-Right> <S-Right>
 
 " Insert mode page move
 inoremap <C-Z>  <C-\><C-O>zz
@@ -331,3 +329,20 @@ function! FindAndReplace()
     call inputrestore()
     execute '%s/\<' . search . '\>/' . replace . '/gc'
 endfunction
+
+function! FunctionAlign()
+    let [vstart, vend] = ["'<", "'>"]
+    let range = vstart . ',' . vend
+    execute range . "EasyAlign / [*]*[ ]\\=\\ze\\S\\+\\s*[(,;=]/ { 'lm' : 0, 'rm' : 0 }"
+    execute range . "EasyAlign /(/ { 'rm' : 0 }"
+endfunction
+
+function! CCommentAlign()
+    let g:easy_align_ignore_groups = []
+    let [vstart, vend] = ["'<", "'>"]
+    let range = vstart . ',' . vend
+    execute range . "EasyAlign / \\zs\\\/\\\*/"
+    execute range . "EasyAlign / \\\/\\\*[^*]*\\zs\\\*\\\//"
+    let g:easy_align_ignore_groups = [ 'Comment', 'String' ]
+endfunction
+
