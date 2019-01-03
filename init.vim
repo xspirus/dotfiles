@@ -7,13 +7,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'scrooloose/syntastic'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
+Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'raimondi/delimitmate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips' | Plug 'xspirus/vim-ultisnips'
-Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-fugitive'
@@ -27,22 +26,21 @@ Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Autocomplete                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'Shougo/deoplete.nvim', { 'do' : ':UpdateRemotePlugins' }
-Plug 'Shougo/neco-syntax'
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/libclang-python3'
-Plug 'Shougo/neoinclude.vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'Shougo/neco-vim'
-Plug 'zchee/deoplete-zsh'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim', { 'do' : ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete-clangx'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'mhartington/nvim-typescript', { 'do' : './install.sh' }
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'copy/deoplete-ocaml'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Haskell                                                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'eagletmt/ghcmod-vim'
-Plug 'eagletmt/neco-ghc'
+Plug 'eagletmt/ghcmod-vim', { 'for' : 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for' : 'haskell' }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colorscheme Plugins                                                       "
@@ -55,7 +53,13 @@ Plug 'joshdick/onedark.vim'
 " => Syntax                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'neovimhaskell/haskell-vim'
+Plug 'neovimhaskell/haskell-vim', { 'for' : 'haskell' }
+Plug 'leafgarland/typescript-vim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Latex                                                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'xuhdev/vim-latex-live-preview', { 'for' : 'tex' }
 
 call plug#end()
 
@@ -111,7 +115,7 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 " FileTypes with tab length of 2
-autocmd FileType ocaml,html,css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType ocaml,html,scss,css,javascript,typescript,haskell setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Omnifunc
 set omnifunc=syntaxComplete#complete
@@ -125,7 +129,7 @@ set splitright
 
 " For autocomplete menus
 set shortmess+=c
-set completeopt-=preview
+set completeopt=noinsert,menuone,noselect
 set wildmenu
 
 " Highlight cursor
@@ -140,11 +144,12 @@ set termguicolors
 colo onedark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Deoplete                                                                  "
+" => Deoplete and LSP                                                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup         = 1
-let g:deoplete#omni#input_patterns       = {}
-let g:deoplete#omni#input_patterns.ocaml = '[.\w]+'
+let g:deoplete#sources#jedi#python_paths = "python3"
+
+let g:syntastic_python_python_exec = "python3"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim Easy Align                                                            "
@@ -161,7 +166,7 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " => Airline Theme                                                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:airline#extensions#syntastic#enabled   = 1
+let g:airline#extensions#ale#enabled         = 1
 let g:airline#extensions#branch#enabled      = 1
 let g:airline#extensions#tabline#enabled     = 1
 let g:airline#extensions#tabline#show_splits = 0
@@ -177,23 +182,6 @@ let g:airline_section_x = airline#section#create(['filetype', ' ', '%{WebDevIcon
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic                                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_error_symbol             = '✗'
-" let g:syntastic_warning_symbol           = '⚠'
-" let g:syntastic_style_error_symbol       = '✗'
-" let g:syntastic_style_warning_symbol     = '⚠'
-" let g:syntastic_auto_loc_list            = 1
-" let g:syntastic_aggregate_errors         = 1
-" let g:syntastic_check_on_open            = 1
-" let g:syntastic_check_on_wq              = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ale                                                                       "
@@ -214,9 +202,9 @@ let g:NERDTrimTrailingWhitespace = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => UltiSnips                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger       = "<c-k>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-e>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
+let g:UltiSnipsExpandTrigger       = "<C-k>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-e>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-b>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => delimitMate                                                               "
@@ -237,45 +225,10 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Haskell neco-ghc                                                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:haskellmode_completion_ghc = 1
+let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-"*************************************************************
-" => Merlin
-"*************************************************************
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-if count(s:opam_available_tools,"ocp-indent") == 0
-  source "/home/spirus/.opam/system/share/vim/syntax/ocp-indent.vim"
-endif
+let g:necoghc_enable_detailed_browse = 1
+let g:necoghc_use_stack = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Abbreviations                                                             "
@@ -299,6 +252,11 @@ augroup vimrc-make-cmake
   autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
+" latex
+augroup latex
+  autocmd!
+  autocmd BufNewFile,BufRead *.tex setlocal filetype=tex
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings                                                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -320,7 +278,7 @@ nnoremap <S-tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 " NERDTree
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F3> :NERDTreeTabsOpen<CR>
 nnoremap <silent> <F4> :NERDTreeFind<CR>
 
 " Tagbar
@@ -407,3 +365,35 @@ function! CCommentAlign()
     let g:easy_align_ignore_groups = [ 'Comment', 'String' ]
 endfunction
 
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+for tool in s:opam_packages
+  " Respect package order (merlin should be after ocp-index)
+  if count(s:opam_available_tools, tool) > 0
+    call s:opam_configuration[tool]()
+  endif
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line

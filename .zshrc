@@ -4,6 +4,8 @@
 # Path to your oh-my-zsh installation.
   export ZSH=/home/spirus/.oh-my-zsh
 
+  export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -11,9 +13,6 @@
 #ZSH_THEME="agnoster"
 export TERM="xterm-256color"
 ZSH_THEME="powerlevel9k/powerlevel9k"
-
-# For agnoster theme (hide username@localhost)
-DEFAULT_USER=`whoami`
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -108,5 +107,31 @@ fi
 
 # Powelevel9k
 
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time ram)
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S | %d/%m/%Y}"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_left
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram)
+
+function mkvenv () {
+    mkdir $1
+    mkdir $1/data
+    mkdir $1/docs
+    mkdir $1/nbs
+    mkdir $1/src
+    cd $1
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install --upgrade pip jupyter pynvim
+    deactivate
+    source venv/bin/activate
+}
+
+function mkcdir () {
+    mkdir $1
+    touch $1/Makefile
+    touch $1/CMakeLists.txt
+    mkdir $1/src
+}
+
+# OPAM configuration
+. /home/spirus/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
