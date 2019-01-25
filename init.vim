@@ -35,6 +35,10 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'mhartington/nvim-typescript', { 'do' : './install.sh' }
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'copy/deoplete-ocaml'
+" Plug 'autozimu/LanguageClient-neovim', {
+    " \ 'branch': 'next',
+    " \ 'do': 'bash install.sh',
+    " \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Haskell                                                                   "
@@ -149,6 +153,10 @@ colo onedark
 let g:deoplete#enable_at_startup         = 1
 let g:deoplete#sources#jedi#python_paths = "python3"
 
+" let g:LanguageClient_serverCommands = {
+    " \ 'haskell': ['hie-wrapper'],
+    " \ }
+
 let g:syntastic_python_python_exec = "python3"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -228,7 +236,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:necoghc_enable_detailed_browse = 1
-let g:necoghc_use_stack = 0
+" let g:necoghc_use_stack = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Abbreviations                                                             "

@@ -121,9 +121,14 @@ function mkvenv () {
     cd $1
     python3 -m venv venv
     source venv/bin/activate
-    pip install --upgrade pip jupyter pynvim
+    pip install -U pip
+    pip install -U jupyter pynvim
     deactivate
     source venv/bin/activate
+}
+
+function pysource () {
+    source $(find . -name "activate")
 }
 
 function mkcdir () {
@@ -133,5 +138,20 @@ function mkcdir () {
     mkdir $1/src
 }
 
+function hsprj () {
+    stack new $1 common
+    cd $1
+    mkdir src
+    stack setup
+    stack build ghc-mod
+}
+
 # OPAM configuration
 . /home/spirus/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# stack autocomplete
+eval "$(stack --bash-completion-script stack)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/spirus/.sdkman"
+[[ -s "/home/spirus/.sdkman/bin/sdkman-init.sh" ]] && source "/home/spirus/.sdkman/bin/sdkman-init.sh"
