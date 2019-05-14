@@ -2,9 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/spirus/.oh-my-zsh
+export ZSH=/home/spirus/.oh-my-zsh
 
-  export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
+
+export PIPENV_VENV_IN_PROJECT=1
+
+# Erlang
+export ERL_LIBS=$HOME/Documents/proper
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -107,7 +112,7 @@ fi
 
 # Powelevel9k
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs virtualenv)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_SHORTEN_STRATEGY=truncate_left
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram)
@@ -119,12 +124,8 @@ function mkvenv () {
     mkdir $1/nbs
     mkdir $1/src
     cd $1
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -U pip
-    pip install -U jupyter pynvim
-    deactivate
-    source venv/bin/activate
+    cp ~/dotfiles/templates/python/Makefile .
+    make setup
 }
 
 function pysource () {
