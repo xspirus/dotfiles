@@ -1,2 +1,5 @@
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
+    pbrs = "!f() { \
+                git branch -vv | grep ': gone]' | awk '{print($1)}' | xargs git branch -D; \
+            }; f"
