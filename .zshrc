@@ -4,12 +4,18 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/spirus/.oh-my-zsh
 
-export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
-
+export PATH=$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.cabal/bin:$PATH
 export PIPENV_VENV_IN_PROJECT=1
 
 # Erlang
 export ERL_LIBS=$HOME/Documents/proper
+
+# Editor
+export EDITOR=nvim
+
+# Less syntax highlight
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+export LESS=' -R '
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -70,6 +76,11 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  docker
+  docker-compose
+  python
+  sudo
+  zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
@@ -124,6 +135,7 @@ function mkvenv () {
     mkdir $1/nbs
     mkdir $1/src
     cd $1
+    git init
     cp ~/dotfiles/templates/python/Makefile .
     make setup
 }
@@ -150,5 +162,13 @@ function hsprj () {
 # OPAM configuration
 . /home/spirus/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-# stack autocomplete
-eval "$(stack --bash-completion-script stack)"
+# Fix neovim cursor
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+precmd_functions+=(_fix_cursor)
+
+export PATH=$PATH:$HOME/.pyenv/shims
+export PYENV_ROOT=$HOME/.pyenv
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
