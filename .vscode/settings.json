@@ -1,6 +1,5 @@
 {
     "editor.fontFamily": "'DejaVu Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "workbench.colorTheme": "One Dark Pro",
     "window.zoomLevel": 0,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -16,8 +15,12 @@
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.renderIndentGuides": false,
     "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "python.jediEnabled": false,
     "php.suggest.basic": false,
-    "erlang.erlangPath": "/usr/bin/erl",
+    "terminal.integrated.cursorStyle": "line",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.editor.enablePreview": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
 }

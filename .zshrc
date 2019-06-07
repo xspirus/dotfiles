@@ -4,8 +4,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/spirus/.oh-my-zsh
 
-export PATH=$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.cabal/bin:$PATH
+export PATH=$HOME/.poetry/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.cabal/bin:$PATH
 export PIPENV_VENV_IN_PROJECT=1
+export PIPENV_VERBOSITY=-1
 
 # Erlang
 export ERL_LIBS=$HOME/Documents/proper
@@ -80,6 +81,7 @@ plugins=(
   docker-compose
   python
   sudo
+  poetry
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -135,7 +137,9 @@ function mkvenv () {
     mkdir $1/nbs
     mkdir $1/src
     cd $1
-    git init
+    if [ ! -d "../.git" ]; then
+        git init
+    fi
     cp ~/dotfiles/templates/python/Makefile .
     make setup
 }
