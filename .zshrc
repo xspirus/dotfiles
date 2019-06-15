@@ -104,7 +104,6 @@ plugins=(
   docker-compose
   python
   sudo
-  poetry
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
