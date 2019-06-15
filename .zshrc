@@ -188,7 +188,6 @@ _fix_cursor() {
 }
 precmd_functions+=(_fix_cursor)
 
-export PATH=$PATH:$HOME/.pyenv/shims
 export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
