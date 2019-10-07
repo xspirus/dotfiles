@@ -9,10 +9,10 @@ export PIPENV_VENV_IN_PROJECT=1
 export PIPENV_VERBOSITY=-1
 
 # Erlang
-export ERL_LIBS=$HOME/Documents/proper
+export ERL_LIBS=$HOME/Documents/Thesis/proper
 
 # Editor
-export EDITOR=nvim
+export EDITOR=vim
 
 # Less syntax highlight
 export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
@@ -24,13 +24,16 @@ export LESS=' -R '
 
 #ZSH_THEME="agnoster"
 export TERM="xterm-256color"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Powelevel9k
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user ssh root_indicator dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv pyenv command_execution_time ram)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv pyenv nodeenv)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+
+POWERLEVEL9K_USER_DEFAULT_BACKGROUND='black'
+POWERLEVEL9K_USER_DEFAULT_FOREGROUND='white'
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
@@ -100,13 +103,20 @@ POWERLEVEL9K_ROOT_ICON='\uf292'
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  docker
-  docker-compose
-  python
-  sudo
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+    # normal plugins
+    sudo
+    git
+    # docker autocompletion
+    docker
+    docker-compose
+    # zsh specific
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    # CLI completions
+    aws
+    # Python
+    python
+    pyenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -139,12 +149,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Solarized
-
-if [ -f ~/.dir_colors/dircolors ]
-    then eval `dircolors ~/.dir_colors/dircolors`
-fi
 
 function mkvenv () {
     mkdir $1
@@ -179,14 +183,19 @@ function hsprj () {
     stack build ghc-mod
 }
 
+function maintenance () {
+    trizen -Syyu --skipinteg --noconfirm
+    trizen -Rns $(trizen -Qtdq) --noconfirm
+}
+
 # OPAM configuration
 . /home/spirus/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # Fix neovim cursor
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-precmd_functions+=(_fix_cursor)
+#_fix_cursor() {
+#   echo -ne '\e[5 q'
+#}
+#precmd_functions+=(_fix_cursor)
 
 export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
