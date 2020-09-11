@@ -1,269 +1,277 @@
+" Try to load minpac.
+packadd minpac
+
+if !exists('*minpac#init')
+    " minpac is not available.
+
+    " Settings for plugin-less environment.
+else
+    " minpac is available.
+    call minpac#init({'verbose': 3})
+    call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+    " Additional plugins here.
+
+    call minpac#add('scrooloose/nerdtree')
+    call minpac#add('jistr/vim-nerdtree-tabs')
+
+    call minpac#add('joshdick/onedark.vim')
+
+    call minpac#add('vim-airline/vim-airline')
+    call minpac#add('ryanoasis/vim-devicons')
+
+    call minpac#add('tpope/vim-fugitive')
+    call minpac#add('airblade/vim-gitgutter')
+
+    call minpac#add('neoclide/coc.nvim', { 'branch': 'release' })
+
+    command! PackUpdate call minpac#update()
+    command! PackClean call minpac#clean()
+    command! PackStatus call minpac#status()
+
+    " Plugin settings here.
+
+    nnoremap <silent> <F3> :NERDTreeTabsOpen<CR>
+    nnoremap <silent> <F4> :NERDTreeFind<CR>
+    let g:NERDTreeMinimalUI = 1
+    let g:NERDTreeDirArrows = 1
+
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_powerline_fonts = 1
+
+    " use <tab> for trigger completion and navigate to the next complete item
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+
+    " use <c-space>for trigger completion
+    inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    packadd onedark.vim
+
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins                                                                   "
+" => General Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Specify directory for plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/syntastic'
-" Plug 'w0rp/ale'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround'
-" Plug 'raimondi/delimitMate'
-Plug 'jiangmiao/auto-pairs'
-Plug 'SirVer/ultisnips' | Plug 'xspirus/vim-ultisnips'
-Plug 'godlygeek/tabular'
-Plug 'junegunn/vim-easy-align'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Autocomplete                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'Valloric/YouCompleteMe'
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'ervandew/supertab'
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Haskell                                                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'eagletmt/ghcmod-vim'
-Plug 'eagletmt/neco-ghc'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colorscheme Plugins                                                       "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntax                                                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'leafgarland/typescript-vim'
-
-call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General Settings                                                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-filetype plugin indent on
-syntax on
-syntax enable
-set encoding=utf-8
-
-" No Vi compatible
+" Compatibility to VIM only
 set nocompatible
 
-" Fix backspace
-set backspace=indent,eol,start
+" Sets how many lines of history VIM has to remember
+set history=500
 
-" Indenting
-set autoindent
-set smartindent
-" For c files
-autocmd FileType c,cpp setlocal cindent
+" Filetype plugins
+filetype plugin on
+filetype indent on
 
-" Update file changes
+" Auto read changes when file is changed
 set autoread
 
-" Registers
+" Leader
+let mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+":W saves sudo
+command W w !sudo tee % > /dev/null
+
+" Clipboard
 set clipboard=unnamed,unnamedplus
 
-" Show title
+" Make keyboard fast
+set ttyfast
+
+" Terminal title
 set title
 
-" Show numbers on left
-set number
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM User Interface
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Relative numbering for easy navigation
+" Use mouse
+set mouse=a
+
+" Set 5 lines of scrolloff - when moving up and down
+set scrolloff=5
+
+" Line numbers
+set number
 set relativenumber
 
-" Show position of cursor
+" Turn on the wildmenu
+set wildmenu
+
+" Always show current position
 set ruler
 
-" Command
-set showcmd
+" Hightligth current line
+set cursorline
 
-" Search
-set incsearch
+" A buffer becomes hidden when it is abandoned
+set hidden
+
+" Configure backspace so it acts as it should
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
 set hlsearch
 
-" Tabs
+" Make search act like search in modern browsers
+set incsearch
+
+" Don't redraw when executing macros
+set lazyredraw
+
+" For regular expressions
+set magic
+
+" Show matching brackets
+set showmatch
+
+" Splitting
+set splitright
+set splitbelow
+
+" Always show statusbar
+set laststatus=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax
+syntax enable
+
+" Terminal GUI colors (new terminals are fancy)
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set t_Co=256
+set termguicolors
+
+" Dark background
+set background=dark
+
+" UTF-8 encoding
+set encoding=utf-8
+
+" Colorscheme
+try
+    colorscheme onedark
+catch
+endtry
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, Tabs, Indentation
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 4 space tab default
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
-" FileTypes with tab length of 2
-autocmd FileType ocaml,html,scss,css,javascript,typescript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
-" Omnifunc
-set omnifunc=syntaxComplete#complete
+" Linebreak on 100 characters
+set textwidth=100
+set linebreak
+set wrapmargin=2
+set formatoptions=qrn1
 
-" Lines to keep showing when scrolling
-set scrolloff=5
-
-" Splitting always to the right and to the bottom
-set splitbelow
-set splitright
-
-" For autocomplete menus
-set shortmess+=c
-set completeopt-=preview
-set wildmenu
-
-" Highlight cursor
-set cursorline
-
-" Always show statusline
-set laststatus=2
-
-" Colors
-set background=dark
-set termguicolors
-colo onedark
+" Indentation
+set autoindent
+set smartindent
+set wrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe                                                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim Easy Align                                                            "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:easy_align_ignore_groups    = [ "Comment", "String" ]
-let g:easy_align_ignore_unmatched = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => SuperTab                                                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Airline Theme                                                             "
+" => Filetype Specific
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:airline#extensions#syntastic#enabled   = 1
-let g:airline#extensions#branch#enabled      = 1
-let g:airline#extensions#tabline#enabled     = 1
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tagbar#enabled      = 1
-let g:airline_skip_empty_sections            = 1
-let g:airline_powerline_fonts                = 1
-
-let g:airline_section_x = airline#section#create(['filetype', ' ', '%{WebDevIconsGetFileTypeSymbol()}', ' ', '%{WebDevIconsGetFileFormatSymbol()}'])
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDTree                                                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrows = 1
+autocmd FileType
+    \ html,
+    \scss,
+    \sass,
+    \css,
+    \javascript,
+    \typescript,
+    \yaml,
+    \json 
+    \ setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ale                                                                       "
+" => Abbreviations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_sign_error   = '✗'
-let g:ale_sign_warning = '⚠'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDComment                                                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDSpaceDelims            = 1
-let g:NERDCompactSexyComs        = 1
-let g:NERDCustomDelimeters       = { 'c': { 'left': '/**','right': '*/' } }
-let g:NERDCustomDelimeters       = { 'cpp': { 'left': '/**','right': '*/' } }
-let g:NERDCustomDelimeters       = { 'ocaml': { 'left': '(**','right': '*)' } }
-let g:NERDTrimTrailingWhitespace = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => UltiSnips                                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger       = "<c-k>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-e>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => delimitMate                                                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:delimitMate_expand_cr    = 1
-let g:delimitMate_expand_space = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Multiple Cursors                                                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:multi_cursor_use_default_mappings = 0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Java Complete 2                                                           "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Haskell neco-ghc                                                          "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-let g:necoghc_enable_detailed_browse = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Abbreviations                                                             "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Eliminate missclicked caps lock or shift when saving
-cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
 cnoreabbrev Wq wq
 cnoreabbrev Wa wa
 cnoreabbrev wQ wq
 cnoreabbrev WQ wq
-cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
 " make/cmake
-augroup vimrc-make-cmake
+augroup makecmake
   autocmd!
   autocmd FileType make setlocal noexpandtab
   autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
+" latex
+augroup latex
+  autocmd!
+  autocmd BufNewFile,BufRead *.tex setlocal filetype=tex
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings                                                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mapleader = ','
 
 " Git
-noremap <Leader>ga  :Gwrite<CR>
-noremap <Leader>gc  :Gcommit<CR>
+noremap <Leader>ga :Gwrite<CR>
+noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gsh :Gpush<CR>
 noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs  :Gstatus<CR>
-noremap <Leader>gb  :Gblame<CR>
-noremap <Leader>gd  :Gvdiff<CR>
-noremap <Leader>gr  :Gremove<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gvdiff<CR>
+noremap <Leader>gr :Gremove<CR>
 
 " Tabs
 nnoremap <Tab> gt
 nnoremap <S-tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
-
-" NERDTree
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-nnoremap <silent> <F4> :NERDTreeFind<CR>
 
 " Tagbar
 nnoremap <silent> <F5> :Tagbar<CR>
@@ -287,15 +295,6 @@ inoremap <silent> <C-Down> 	<C-\><C-O>:wincmd j<CR>
 inoremap <silent> <C-Left> 	<C-\><C-O>:wincmd h<CR>
 inoremap <silent> <C-Right> <C-\><C-O>:wincmd l<CR>
 
-" Save file
-noremap <silent> <Leader>s :w<CR>
-noremap <silent> <Leader>e :q<CR>
-
-" Cut/Copy/Paste
-vnoremap <C-x> d
-vnoremap <C-c> y
-inoremap <C-v> <C-\><C-o>P
-
 " Selecting text in insert mode
 imap <S-Up>     <Esc>v<Up>
 imap <S-Down>   <Esc>`^v<Down>
@@ -316,68 +315,3 @@ vnoremap <C-S-Right> <S-Right>
 inoremap <C-Z>  <C-\><C-O>zz
 inoremap <C-T>  <C-\><C-O>zt
 inoremap <C-B>  <C-\><C-O>zb
-
-" Call functions
-nnoremap <C-f>  :call FindAndReplace()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Functions                                                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! FindAndReplace()
-    call inputsave()
-    let search = input('Give word to replace: ')
-    call inputrestore()
-    call inputsave()
-    let replace = input('Give word to be replaced with: ')
-    call inputrestore()
-    execute '%s/\<' . search . '\>/' . replace . '/gc'
-endfunction
-
-function! FunctionAlign()
-    let [vstart, vend] = ["'<", "'>"]
-    let range = vstart . ',' . vend
-    execute range . "EasyAlign / [*]*[ ]\\=\\ze\\S\\+\\s*[(,;=]/ { 'lm' : 0, 'rm' : 0 }"
-    execute range . "EasyAlign /(/ { 'rm' : 0 }"
-endfunction
-
-function! CCommentAlign()
-    let g:easy_align_ignore_groups = []
-    let [vstart, vend] = ["'<", "'>"]
-    let range = vstart . ',' . vend
-    execute range . "EasyAlign / \\zs\\\/\\\*/"
-    execute range . "EasyAlign / \\\/\\\*[^*]*\\zs\\\*\\\//"
-    let g:easy_align_ignore_groups = [ 'Comment', 'String' ]
-endfunction
-
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line

@@ -1,0 +1,7 @@
+imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+inoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
+nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
+inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+inoremap <silent><buffer><expr> <C-t> denite#do_map('do_action', 'tabopen')
+inoremap <silent><buffer><expr> <C-v> denite#do_map('do_action', 'vsplit')
+inoremap <silent><buffer><expr> <C-r> denite#do_map('redraw')
