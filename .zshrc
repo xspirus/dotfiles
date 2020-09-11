@@ -4,15 +4,17 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-export PATH=$HOME/.poetry/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.cabal/bin:$PATH
-export PIPENV_VENV_IN_PROJECT=1
-export PIPENV_VERBOSITY=-1
-
-# Erlang
-export ERL_LIBS=$HOME/Documents/Thesis/proper
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.pyenv/bin:$PATH"
+PATH="$HOME/.cargo/env:$PATH"
+PATH="$HOME/.poetry/bin:$PATH"
+PATH="$HOME/.gitscripts:$PATH"
+PATH="$HOME/.cabal/bin:$PATH"
+PATH="$HOME/.ghcup/bin:$PATH"
+export PATH=$PATH
 
 # Editor
-export EDITOR=vim
+export EDITOR=nvim
 
 # Less syntax highlight
 export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
@@ -22,8 +24,6 @@ export LESS=' -R '
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-#ZSH_THEME="agnoster"
-export TERM="xterm-256color"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Powelevel9k
@@ -31,6 +31,10 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user ssh root_indicator dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status virtualenv pyenv nodeenv)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\ue0bc '
+# POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='\ue0bd '
+# POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\ue0be '
+# POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='\ue0bf '
 
 POWERLEVEL9K_USER_DEFAULT_BACKGROUND='black'
 POWERLEVEL9K_USER_DEFAULT_FOREGROUND='white'
@@ -52,6 +56,10 @@ POWERLEVEL9K_VCS_GIT_ICON=''
 POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uf09b '
 POWERLEVEL9K_PYTHON_ICON='\ue235'
 POWERLEVEL9K_ROOT_ICON='\uf292'
+
+# Nodeenv
+POWERLEVEL9K_NODEENV_BACKGROUND='blue'
+POWERLEVEL9K_NODEENV_FOREGROUND='black'
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -112,11 +120,21 @@ plugins=(
     # zsh specific
     zsh-autosuggestions
     zsh-syntax-highlighting
-    # CLI completions
-    aws
     # Python
+    pip
     python
     pyenv
+    poetry
+    # Node
+    npm
+    npx
+    nvm
+    # Erlang
+    rebar
+    # Virtualization
+    vagrant
+    minikube
+    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -150,6 +168,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+fpath=($HOME/dotfiles/gitscripts $fpath)
+
+autoload -U compinit && compinit
+
 function mkvenv () {
     mkdir $1
     mkdir $1/data
@@ -175,6 +197,12 @@ function mkcdir () {
     mkdir $1/src
 }
 
+function initcpp () {
+    mkdir -p src
+    touch src/main.cpp
+    cp ~/dotfiles/templates/cpp/Makefile .
+}
+
 function hsprj () {
     stack new $1 common
     cd $1
@@ -185,7 +213,10 @@ function hsprj () {
 
 function maintenance () {
     trizen -Syyu --skipinteg --noconfirm
-    trizen -Rns $(trizen -Qtdq) --noconfirm
+    DEL=$(trizen -Qtdq | wc -l)
+    if [ "$DEL" != 0 ]; then
+        trizen -Rns $(trizen -Qtdq) --noconfirm
+    fi
 }
 
 # OPAM configuration
@@ -197,6 +228,6 @@ function maintenance () {
 #}
 #precmd_functions+=(_fix_cursor)
 
-export PYENV_ROOT=$HOME/.pyenv
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
