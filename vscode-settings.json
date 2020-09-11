@@ -1,109 +1,129 @@
 {
-    "editor.fontFamily": "'DejaVu Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "window.zoomLevel": 0,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.cStandard": "c11",
-    "C_Cpp.default.intelliSenseMode": "clang-x64",
-    "editor.detectIndentation": false,
-    "window.restoreWindows": "none",
-    "terminal.external.linuxExec": "terminator",
-    "editor.fontSize": 15,
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.suggestSelection": "first",
-    "php.suggest.basic": false,
-    "terminal.integrated.cursorStyle": "line",
-    "workbench.editor.enablePreview": false,
-    "breadcrumbs.enabled": true,
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
-    "languageServerHaskell.useCustomHieWrapper": true,
-    "languageServerHaskell.useCustomHieWrapperPath": "hie-wrapper",
-    "[c]": {
-      "editor.wordBasedSuggestions": false,
-      "editor.tabSize": 2
-    },
-    "[cpp]": {
-      "editor.wordBasedSuggestions": false,
-      "editor.tabSize": 2,
-    },
-    "[javascript]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
-      "editor.tabSize": 2,
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[html]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[css]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[scss]": {
-        "editor.suggest.insertMode": "replace",
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[yaml]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[terraform]": {
-        "editor.tabSize": 2
-    },
-    "[erlang]": {
-        "editor.tabSize": 2
-    },
-    "workbench.tree.renderIndentGuides": "none",
-    "workbench.tree.indent": 16,
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.explorerKind": "external",
-    "terminal.integrated.fontFamily": "\"DejaVuSansMono Nerd Font\"",
-    "terminal.integrated.fontSize": 13,
-    "go.formatTool": "goimports",
-    "go.useLanguageServer": true,
-    "latex-workshop.view.pdf.viewer": "browser",
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.codeLens.enabled": false,
-    "gitlens.views.search.enabled": false,
-    "gitlens.views.compare.enabled": false,
-    "eslint.format.enable": true,
-    "eslint.run": "onSave",
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.startupEditor": "newUntitledFile",
-    "C_Cpp.enhancedColorization": "Disabled",
-    "editor.multiCursorModifier": "alt",
-    "editor.wordWrap": "on",
-    "oneDarkPro.italic": false,
-    "oneDarkPro.editorTheme": "Onedark Pro",
-    "python.jediEnabled": false,
-    "workbench.preferredDarkColorTheme": "One Dark Pro",
-    "workbench.colorTheme": "One Dark Pro",
+  "editor.fontFamily": "'SauceCodePro Nerd Font Mono'",
+  "window.zoomLevel": 0,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.cStandard": "c11",
+  "C_Cpp.default.intelliSenseMode": "clang-x64",
+  "editor.detectIndentation": false,
+  "window.restoreWindows": "none",
+  "terminal.external.linuxExec": "terminator",
+  "editor.fontSize": 15,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.suggestSelection": "first",
+  "php.suggest.basic": false,
+  "terminal.integrated.cursorStyle": "line",
+  "workbench.editor.enablePreview": false,
+  "breadcrumbs.enabled": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "languageServerHaskell.useCustomHieWrapper": true,
+  "languageServerHaskell.useCustomHieWrapperPath": "hie-wrapper",
+  "[ansible]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[c]": {
+    "editor.wordBasedSuggestions": false,
+    "editor.tabSize": 2
+  },
+  "[cpp]": {
+    "editor.wordBasedSuggestions": false,
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.suggest.insertMode": "replace",
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[terraform]": {
+    "editor.tabSize": 2
+  },
+  "[erlang]": {
+    "editor.tabSize": 2
+  },
+  "[ruby]": {
+    "editor.tabSize": 2
+  },
+  "[latex]": {
+    "editor.formatOnPaste": false,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "editor.tabSize": 2
+  },
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.tree.indent": 16,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.explorerKind": "external",
+  "terminal.integrated.fontFamily": "\"DejaVuSansMono Nerd Font\"",
+  "terminal.integrated.fontSize": 13,
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "latex-workshop.view.pdf.viewer": "browser",
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.views.search.enabled": false,
+  "gitlens.views.compare.enabled": false,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.startupEditor": "newUntitledFile",
+  "C_Cpp.enhancedColorization": "Disabled",
+  "editor.multiCursorModifier": "alt",
+  "editor.wordWrap": "on",
+  "oneDarkPro.italic": false,
+  "oneDarkPro.editorTheme": "Onedark Pro",
+  // "python.jediEnabled": false,
+  "workbench.colorTheme": "One Dark Pro",
+  "javascript.implicitProjectConfig.checkJs": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.wordWrapColumn": 100,
+  "editor.rulers": [100],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "python.showStartPage": false,
+  "java.semanticHighlighting.enabled": true,
+  "java.configuration.checkProjectSettingsExclusions": false,
+  "scm.alwaysShowRepositories": true
 }
