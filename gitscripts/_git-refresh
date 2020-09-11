@@ -1,0 +1,8 @@
+#compdef git-refresh
+#description update branch with remotes and rebase current
+
+_git-refresh() {
+    _arguments \
+        ': :__git_any_repositories' \
+        '*: :__git_remote_branch_names_noprefix'
+}

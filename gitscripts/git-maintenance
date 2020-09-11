@@ -1,0 +1,15 @@
+#!/bin/sh
+
+remote=$1
+remoteBranch=$2
+test -z "$remote" \
+    && echo "ERROR: Please provide the source remote." 1>&2 \
+    && exit 1
+test -z "$remoteBranch" \
+    && echo "ERROR: Please provide the source remote." 1>&2 \
+    && exit 1
+
+git checkout "$remoteBranch"
+git fetch -p "$remote"
+git pull --rebase "$remote" "$remoteBranch"
+git rmbr

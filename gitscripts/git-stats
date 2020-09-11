@@ -1,0 +1,78 @@
+#!/bin/bash
+
+branch=$1
+
+# git log \
+#     --author="$author" \
+#     --pretty=tformat: \
+#     --numstat \
+#     | \
+#     gawk '{ \
+#       add += $1; \
+#       subs += $2; \
+#       loc += $1 - $2 \
+#     } END { \
+#       printf "Added: %s\nRemoved: %s\nTotal: %s\n", add, subs, loc
+#     }'
+
+git -c log.showSignature=false log \
+    ${branch} \
+    --use-mailmap \
+    --numstat \
+    --pretty="format:commit %H%nAuthor: %aN <%aE>%nDate: %ad%n%w(0,4,4)%B%n" \
+    | awk '
+    function printStats(author) {
+        printf "> %s:\n", author
+        if(more["Total"] > 0) {
+            printf "    Insertions:    %d (%.2f%%)\n", more[author], \
+                (more[author] / more["Total"] * 100)
+        }
+        if(less["Total"] > 0) {
+            printf "    Deletions:     %d (%.2f%%)\n", less[author], \
+                (less[author] / less["Total"] * 100)
+        }
+        if(file["Total"] > 0) {
+            printf "    Files:         %d (%.2f%%)\n", file[author], \
+                (file[author] / file["Total"] * 100)
+        }
+        if(commits["Total"] > 0) {
+            printf "    Commits:       %d (%.2f%%)\n", commits[author], \
+                (commits[author] / commits["Total"] * 100)
+        }
+        if (first[author] != "") {
+            printf "    Lines changed: %s\n", more[author] + less[author]
+            printf "    First commit:  %s\n", first[author]
+            printf "    Last commit:   %s\n", last[author]
+        }
+        printf "\n"
+    }
+
+    /^Author:/ {
+        $1 = ""
+        author = substr($0, 2)
+        commits[author] += 1
+        commits["Total"] += 1
+    }
+
+    /^Date:/ {
+        $1 = ""
+        first[author] = substr($0, 2)
+        if (last[author] == "") { last[author] = first[author] }
+    }
+
+    /^[0-9]/ {
+        more[author] += $1
+        less[author] += $2
+        file[author] += 1
+        more["Total"] += $1
+        less["Total"] += $2
+        file["Total"] += 1
+    }
+
+    END {
+        for (author in commits) {
+            if (author != "Total")
+            printStats(author)
+        }
+        printStats("Total")
+    }'

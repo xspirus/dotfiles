@@ -1,0 +1,5 @@
+#compdef git-stats
+#description show stats for author
+
+_git-stats() {
+}

@@ -1,3 +1,8 @@
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
-    rmbr = "!f() { git branch -vv | grep ': gone]' | awk '{print($1)}' | xargs git branch -D; }; f"
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%ar) %C(bold blue)<%an - %ae>%Creset%C(yellow)%d%Creset' --abbrev-commit
+    amend = commit --amend --no-edit
+    amend-reset = commit --amend --reset-author --no-edit
+[core]
+	editor = vim
+[pull]
+	rebase = true
