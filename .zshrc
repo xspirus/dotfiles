@@ -1,17 +1,27 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Append "$1" to $PATH when not already in.
+prepend_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="$1:${PATH:+$PATH}"
+    esac
+}
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export DENO_INSTALL="$HOME/.deno"
 
-PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/.pyenv/bin:$PATH"
-PATH="$HOME/.cargo/env:$PATH"
-PATH="$HOME/.poetry/bin:$PATH"
-PATH="$HOME/.gitscripts:$PATH"
-PATH="$HOME/.cabal/bin:$PATH"
-PATH="$HOME/.ghcup/bin:$PATH"
-export PATH=$PATH
+prepend_path "$HOME/.local/bin"
+prepend_path "$HOME/.pyenv/bin"
+prepend_path "$HOME/.poetry/bin"
+prepend_path "$HOME/.cargo/env"
+prepend_path "$HOME/.cabal/bin"
+prepend_path "$HOME/.ghcup/bin"
+prepend_path "$HOME/.deno/bin"
+prepend_path "$HOME/.gitscripts"
+
+export PATH
 
 # Editor
 export EDITOR=nvim
@@ -168,7 +178,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-fpath=($HOME/dotfiles/gitscripts $fpath)
+fpath=($HOME/.gitscripts $fpath)
 
 autoload -U compinit && compinit
 
@@ -218,6 +228,8 @@ function maintenance () {
         trizen -Rns $(trizen -Qtdq) --noconfirm
     fi
 }
+
+alias whatismyip="curl -s ifconfig.me | xargs echo"
 
 # OPAM configuration
 . /home/spirus/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

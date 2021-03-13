@@ -1,8 +1,0 @@
-#compdef git-maintenance
-#description update branch based on remotes
-
-_git-maintenance() {
-    _arguments \
-        ': :__git_any_repositories' \
-        '*: :__git_remote_branch_names_noprefix'
-}

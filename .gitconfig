@@ -1,5 +1,5 @@
 [alias]
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%ar) %C(bold blue)<%an - %ae>%Creset%C(yellow)%d%Creset' --abbrev-commit
+    lg = log --author-date-order --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%ar) %C(bold blue)<%an - %ae>%Creset%C(yellow)%d%Creset' --abbrev-commit
     amend = commit --amend --no-edit
     amend-reset = commit --amend --reset-author --no-edit
 [core]

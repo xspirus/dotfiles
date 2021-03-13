@@ -10,6 +10,6 @@ test -z "$remoteBranch" \
     && exit 1
 
 git checkout "$remoteBranch"
-git fetch -p "$remote"
+git fetch --prune --tags --force "$remote"
 git pull --rebase "$remote" "$remoteBranch"
 git rmbr

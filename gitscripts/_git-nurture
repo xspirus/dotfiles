@@ -1,0 +1,6 @@
+#compdef git-nurture
+#description update branch based on remotes
+
+_git-nurture() {
+    _git-pull ;
+}
