@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/spirus/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 PATH="$HOME/.gitscripts:$PATH"
 export PATH
@@ -44,7 +44,7 @@ export EDITOR='vim'
 # Load completions
 fpath=($HOME/.gitscripts $fpath)
 autoload -U compinit && compinit
-source "$PYENV_ROOT/completions/pyenv.zsh"
+[[ ! -d "$PYENV_ROOT/completions/pyenv.zsh" ]] || source "$PYENV_ROOT/completions/pyenv.zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
