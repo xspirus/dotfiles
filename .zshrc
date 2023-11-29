@@ -49,8 +49,20 @@ autoload -U compinit && compinit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+ZSHRCD="${HOME}/.zshrc.d"
+# To customize different stuff
+if [ -d "${ZSHRCD}" ]; then
+  for f in "${ZSHRCD}"/*.zsh; do
+    if [ -r "${f}" ]; then
+      source "${f}"
+    fi
+  done
+fi
+
 alias whatismyip="curl -s ifconfig.me | xargs echo"
 
 randpwd() {
   tr -cd '[:alnum:]' < /dev/urandom | fold -w${1:-32} | head -n1
 }
+
+alias today="date +%Y-%m-%d"

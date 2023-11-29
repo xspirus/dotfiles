@@ -13,7 +13,6 @@
     "terminal.integrated.fontFamily": "\"Menlo for Powerline\"",
     "editor.fontSize": 15,
     "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.renderIndentGuides": false,
     "editor.suggestSelection": "first",
     "php.suggest.basic": false,
     "terminal.integrated.cursorStyle": "line",
@@ -23,4 +22,5 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.python"
     },
+    "editor.guides.indentation": false,
 }
