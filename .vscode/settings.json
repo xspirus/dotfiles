@@ -1,26 +1,139 @@
 {
-    "editor.fontFamily": "'DejaVu Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "window.zoomLevel": 0,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.cStandard": "c99",
-    "C_Cpp.default.intelliSenseMode": "clang-x64",
-    "editor.detectIndentation": false,
-    "window.restoreWindows": "none",
-    "terminal.explorerKind": "external",
-    "terminal.external.linuxExec": "gnome-terminal",
-    "terminal.integrated.fontFamily": "\"Menlo for Powerline\"",
-    "editor.fontSize": 15,
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.suggestSelection": "first",
-    "php.suggest.basic": false,
-    "terminal.integrated.cursorStyle": "line",
-    "workbench.colorTheme": "One Dark Pro",
-    "workbench.editor.enablePreview": false,
-    "workbench.startupEditor": "newUntitledFile",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.python"
-    },
-    "editor.guides.indentation": false,
+  "editor.fontFamily": "'SauceCodePro Nerd Font'",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.detectIndentation": false,
+  "window.restoreWindows": "none",
+  "terminal.external.linuxExec": "terminator",
+  "editor.fontSize": 15,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.suggestSelection": "first",
+  "php.suggest.basic": false,
+  "workbench.editor.enablePreview": false,
+  "breadcrumbs.enabled": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnType": true
+  },
+  "[ansible]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[c]": {
+    "editor.wordBasedSuggestions": "off",
+    "editor.tabSize": 2
+  },
+  "[cpp]": {
+    "editor.wordBasedSuggestions": "off",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.suggest.insertMode": "replace",
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[terraform]": {
+    "editor.tabSize": 2
+  },
+  "[erlang]": {
+    "editor.tabSize": 2
+  },
+  "[ruby]": {
+    "editor.tabSize": 2
+  },
+  "[latex]": {
+    "editor.formatOnPaste": false,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "editor.tabSize": 2
+  },
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.tree.indent": 8,
+  "terminal.explorerKind": "external",
+  "terminal.integrated.fontFamily": "'SauceCodePro Nerd Font'",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.gpuAcceleration": "off",
+  "go.formatTool": "goimports",
+  "go.useLanguageServer": true,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.enabled": false,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.multiCursorModifier": "alt",
+  "editor.wordWrap": "on",
+  "oneDarkPro.italic": false,
+  "oneDarkPro.editorTheme": "One Dark Pro",
+  "workbench.colorTheme": "One Dark Pro",
+  "files.trimTrailingWhitespace": true,
+  "editor.wordWrapColumn": 100,
+  "editor.rulers": [100],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "scm.alwaysShowRepositories": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "python.analysis.autoSearchPaths": false,
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.pylanceLspClientEnabled": true,
+  "git.openRepositoryInParentFolders": "never",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.importFormat": "relative",
+  "[c][cpp]": {
+    "editor.wordBasedSuggestions": "off"
+  },
+  "window.customTitleBarVisibility": "auto",
+  "editor.wrappingIndent": "deepIndent",
+  "terminal.integrated.fontWeight": "500",
+  "helm-intellisense.customValueFileNames": [
+    "values-*.yaml",
+    "values.yaml"
+  ],
+  "git.confirmSync": false,
+  "rust-analyzer.check.workspace": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
 }

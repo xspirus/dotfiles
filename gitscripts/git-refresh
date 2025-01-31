@@ -9,27 +9,33 @@ test -z "$remoteBranch" \
     && echo "ERROR: Please provide the source remote branch." 1>&2 \
     && exit 1
 
-if currentBranch=$(git symbolic-ref --short -q HEAD)
-then
+if currentBranch=$(git symbolic-ref --short -q HEAD); then
     echo On branch "$currentBranch"
     echo "Pulling updates from the $remote branch $remoteBranch ..."
 
     # Fetch changes
     git fetch --prune --tags --force "$remote"
-    # Stash current changes
-    git stash
+    # Check if we need to stash.
+    STASH=
+    if [ $(git diff | wc -l) -ne 0 ]; then
+        STASH=1
+        # Stash current changes
+	git stash
+    fi
     # Checkout remote branch from where you want to update.
     git checkout "$remoteBranch"
-    # Pull the branch to update it
+    # Pull the branch to update it.
     git pull --rebase "$remote" "$remoteBranch"
-    # Remove deleted branches
+    # Remove deleted branches.
     git rmbr
     # Checkout current branch which you were on before.
     git checkout "$currentBranch"
-    # Rebase the changes
+    # Rebase the changes.
     git rebase "$remoteBranch"
-    # Apply the stashed changes
-    git stash apply
+    # Pop the stash if needed.
+    if [ -n "${STASH}" ]; then
+        git stash pop
+    fi
 
     echo "Updated the $currentBranch with changes from $remoteBranch"
 else
